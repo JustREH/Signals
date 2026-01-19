@@ -1,74 +1,115 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Geschützter Bereich</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #111;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+<meta charset="UTF-8">
+<title>Passwort + Zone A + Slide</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
 
-        .container {
-            text-align: center;
-        }
+/* Zentrierung für Login und ZoneA */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
 
-        input, button {
-            padding: 10px;
-            font-size: 16px;
-            margin-top: 10px;
-        }
+/* Buttons */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+}
 
-        #zoneButton {
-            display: none;
-        }
+/* Slide-Toggle Button oben rechts */
+#slideButton {
+    position: fixed;
+    top: 20px;
+    right: -150px; /* Start außerhalb des Bildschirms */
+    padding: 10px 15px;
+    background-color: #0a84ff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: right 0.5s ease; /* Animationsdauer */
+}
 
-        .error {
-            color: red;
-            margin-top: 10px;
-        }
-    </style>
+#slideButton.active {
+    background-color: #28a745;
+}
+
+#slideButton.show {
+    right: 20px; /* Zielposition sichtbar */
+}
+
+#errorMsg {
+    color: red;
+    margin-top: 10px;
+}
+</style>
 </head>
 <body>
 
-<div class="container" id="loginBox">
+<!-- Login -->
+<div class="center" id="loginBox">
     <h2>Passwort eingeben</h2>
     <input type="password" id="passwordInput" placeholder="Passwort">
     <br>
     <button onclick="checkPassword()">Submit</button>
-    <div class="error" id="errorMsg"></div>
+    <div id="errorMsg"></div>
 </div>
 
-<div class="container">
-    <button id="zoneButton" onclick="enterZone()">Zone A</button>
+<!-- Zone A Button -->
+<div class="center" id="zoneABox" style="display:none;">
+    <button onclick="activateZoneA()">Zone A</button>
 </div>
+
+<!-- Slide Toggle Button -->
+<button id="slideButton" onclick="toggleSlide()">Slide: Aus</button>
 
 <script>
-    const CORRECT_PASSWORD = "Qwer"; // <-- HIER Passwort ändern
+const CORRECT_PASSWORD = "1234"; // <-- Passwort hier
 
-    function checkPassword() {
-        const input = document.getElementById("passwordInput").value;
-        const errorMsg = document.getElementById("errorMsg");
+// Passwort prüfen
+function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    const errorMsg = document.getElementById("errorMsg");
 
-        if (input === CORRECT_PASSWORD) {
-            document.getElementById("loginBox").remove(); // destroy
-            document.getElementById("zoneButton").style.display = "inline-block";
-        } else {
-            errorMsg.textContent = "Falsches Passwort";
-        }
+    if(input === CORRECT_PASSWORD){
+        // Login zerstören
+        document.getElementById("loginBox").remove();
+        // Zone A Button anzeigen
+        document.getElementById("zoneABox").style.display = "flex";
+    } else {
+        errorMsg.textContent = "Falsches Passwort!";
     }
+}
 
-    function enterZone() {
-        alert("Willkommen in Zone A");
-        // hier später Weiterleitung möglich
-        // window.location.href = "zoneA.html";
-    }
+// Zone A aktivieren
+function activateZoneA(){
+    // Zone A Button zerstören
+    document.getElementById("zoneABox").remove();
+    // Slide Button sichtbar machen (mit Animation)
+    const slideBtn = document.getElementById("slideButton");
+    slideBtn.style.display = "block";
+    setTimeout(() => {
+        slideBtn.classList.add("show"); // Slide von rechts
+    }, 100); // kurze Verzögerung für Animation
+}
+
+// Slide Button toggeln
+function toggleSlide(){
+    const slideBtn = document.getElementById("slideButton");
+    slideBtn.classList.toggle("active");
+    slideBtn.textContent = slideBtn.classList.contains("active") ? "Slide: An" : "Slide: Aus";
+}
 </script>
 
 </body>
