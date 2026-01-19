@@ -71,8 +71,8 @@ button {
     <button onclick="activateZoneA()">Zone A</button>
 </div>
 
-<!-- Slide Toggle Button -->
-<button id="slideButton" onclick="toggleSlide()">Slide: Aus</button>
+<!-- Slide Toggle Button (jetzt "Aktiv") -->
+<button id="slideButton" onclick="toggleSlide()">Aktiv: Aus</button>
 
 <script>
 const CORRECT_PASSWORD = "1234"; // <-- Passwort hier
@@ -108,7 +108,8 @@ function activateZoneA(){
 function toggleSlide(){
     const slideBtn = document.getElementById("slideButton");
     slideBtn.classList.toggle("active");
-    slideBtn.textContent = slideBtn.classList.contains("active") ? "Slide: An" : "Slide: Aus";
+    // Nur Button-Text geändert: jetzt "Aktiv: An/Aus"
+    slideBtn.textContent = slideBtn.classList.contains("active") ? "Aktiv: An" : "Aktiv: Aus";
 }
 </script>
 
