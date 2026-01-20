@@ -79,10 +79,7 @@ button {
     <button onclick="activateZoneA()">Zone A</button>
 </div>
 
-<!-- ZONE A BILD -->
-<div class="imagecenter" id="Zone A">
-    <img src="Zone A.png" alt="Zone A" width="220">
-</div>
+
 
 <!-- AKTIV BUTTON -->
 <button id="slideButton" onclick="toggleActive()">Aktiv: Aus</button>
@@ -104,6 +101,10 @@ function checkPassword() {
 /* Zone A gedrückt */
 function activateZoneA() {
     document.getElementById("zoneABox").remove();
+    <!-- ZONE A BILD -->
+<div class="imagecenter" id="Zone A">
+    <img src="Zone A.png" alt="Zone A" width="220">
+</div>
 
     // Bild anzeigen
     document.getElementById("Zone A").style.display = "flex";
