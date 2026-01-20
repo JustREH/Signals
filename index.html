@@ -1,110 +1,127 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Signals</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #111;
-            color: white;
-        }
+<meta charset="UTF-8">
+<title>Signaller</title>
 
-        /* Vollbild-Zentrierung NUR für Login & Zone A */
-        .center {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
 
-        input, button {
-            padding: 10px;
-            font-size: 16px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
+/* Zentrierte Boxen */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
 
-        /* Aktiv Button oben rechts */
-        #slideButton {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            display: none;
-            z-index: 10;
-        }
+/* Buttons */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+}
 
-        #slideButton.active {
-            background: green;
-            color: white;
-        }
+/* Aktiv-Slide-Button */
+#slideButton {
+    position: fixed;
+    top: 20px;
+    right: -160px;
+    padding: 10px 15px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: right 0.5s ease;
+    display: none;
+}
 
-        /* Bildbereich – KEIN 100vh */
-        .imageCenter {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            margin-top: 40px;
-        }
-    </style>
+#slideButton.show {
+    right: 20px;
+}
+
+#slideButton.active {
+    background-color: #28a745;
+}
+
+/* Fehlertext */
+#errorMsg {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Bild */
+#zoneABild {
+    display: none;
+}
+</style>
 </head>
+
 <body>
 
 <!-- LOGIN -->
-<div class="center" id="login">
+<div class="center" id="loginBox">
     <h2>Passwort eingeben</h2>
     <input type="password" id="passwordInput" placeholder="Passwort">
     <button onclick="checkPassword()">Submit</button>
+    <div id="errorMsg"></div>
 </div>
 
-<!-- ZONE A -->
-<div class="center" id="zoneA" style="display:none;">
+<!-- ZONE A BUTTON -->
+<div class="center" id="zoneABox" style="display:none;">
     <button onclick="activateZoneA()">Zone A</button>
 </div>
 
-<!-- AKTIV BUTTON -->
-<button id="slideButton" onclick="toggleSlide()">Aktiv: Aus</button>
-
-<!-- BILD -->
-<div class="imageCenter" id="Zone A">
-    <img src="ZoneA.png" alt="Zone A" width="250">
+<!-- ZONE A BILD -->
+<div class="center" id="zoneABild">
+    <img src="ZoneA.png" alt="Zone A" width="220">
 </div>
 
+<!-- AKTIV BUTTON -->
+<button id="slideButton" onclick="toggleActive()">Aktiv: Aus</button>
+
 <script>
-    const CORRECT_PASSWORD = "SignallerManual";
+const CORRECT_PASSWORD = "SignallerManual";
 
-    function checkPassword() {
-        const input = document.getElementById("passwordInput").value;
-        if (input === CORRECT_PASSWORD) {
-            document.getElementById("login").remove();
-            document.getElementById("Zone A").style.display = "flex";
-        } else {
-            alert("Falsches Passwort");
-        }
+/* Passwort prüfen */
+function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    if (input === CORRECT_PASSWORD) {
+        document.getElementById("loginBox").remove();
+        document.getElementById("zoneABox").style.display = "flex";
+    } else {
+        document.getElementById("errorMsg").textContent = "Falsches Passwort!";
     }
+}
 
-    function activateZoneA() {
-        document.getElementById("zoneA").remove();
-        document.getElementById("slideButton").style.display = "block";
-        document.getElementById("Zone A").style.display = "flex";
-    }
+/* Zone A gedrückt */
+function activateZoneA() {
+    document.getElementById("zoneABox").remove();
 
-    function toggleSlide() {
-        const btn = document.getElementById("slideButton");
-        const img = document.getElementById("Zone A");
+    // Bild anzeigen
+    document.getElementById("zoneABild").style.display = "flex";
 
-        btn.classList.toggle("active");
+    // Aktiv-Button einblenden + Slide
+    const btn = document.getElementById("slideButton");
+    btn.style.display = "block";
+    setTimeout(() => btn.classList.add("show"), 100);
+}
 
-        if (btn.classList.contains("active")) {
-            btn.textContent = "Aktiv: An";
-            img.style.display = "flex";
-        } else {
-            btn.textContent = "Aktiv: Aus";
-            img.style.display = "none";
-        }
-    }
+/* Aktiv Toggle */
+function toggleActive() {
+    const btn = document.getElementById("slideButton");
+    btn.classList.toggle("active");
+    btn.textContent = btn.classList.contains("active")
+        ? "Aktiv: An"
+        : "Aktiv: Aus";
+}
 </script>
 
 </body>
