@@ -68,18 +68,18 @@
 <button id="slideButton" onclick="toggleSlide()">Aktiv: Aus</button>
 
 <!-- BILD -->
-<div class="imageCenter" id="zoneABild">
+<div class="imageCenter" id="Zone A">
     <img src="ZoneA.png" alt="Zone A" width="250">
 </div>
 
 <script>
-    const CORRECT_PASSWORD = "1234";
+    const CORRECT_PASSWORD = "SignallerManual";
 
     function checkPassword() {
         const input = document.getElementById("passwordInput").value;
         if (input === CORRECT_PASSWORD) {
             document.getElementById("login").remove();
-            document.getElementById("zoneA").style.display = "flex";
+            document.getElementById("Zone A").style.display = "flex";
         } else {
             alert("Falsches Passwort");
         }
@@ -88,12 +88,12 @@
     function activateZoneA() {
         document.getElementById("zoneA").remove();
         document.getElementById("slideButton").style.display = "block";
-        document.getElementById("zoneABild").style.display = "flex";
+        document.getElementById("Zone A").style.display = "flex";
     }
 
     function toggleSlide() {
         const btn = document.getElementById("slideButton");
-        const img = document.getElementById("zoneABild");
+        const img = document.getElementById("Zone A");
 
         btn.classList.toggle("active");
 
