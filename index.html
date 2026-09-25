@@ -88,7 +88,7 @@ button {
 <button id="slideButton" onclick="toggleActive()">Aktiv: Aus</button>
 
 <script>
-const CORRECT_PASSWORD = "SignallerManual";
+const CORRECT_PASSWORD = ${{ secrets.Passwort }};
 
 /* Passwort prüfen */
 function checkPassword() {
