@@ -59,7 +59,7 @@ button {
 
 /* Bild */
 #zoneABild {
-    display: "none";
+    visibility: 'hidden';
 }
 </style>
 </head>
@@ -106,7 +106,7 @@ function activateZoneA() {
     document.getElementById("zoneABox").remove();
 
     // Bild anzeigen
-    document.getElementById("Zone A").style.display = "flex";
+    document.getElementById("Zone A").style.visibility = 'visible'
 
     // Aktiv-Button einblenden + Slide
     const btn = document.getElementById("slideButton");
